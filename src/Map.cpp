@@ -1,5 +1,5 @@
-#include "Map.hpp"
 #include "libtcod.hpp"
+#include "Map.hpp"
 
 Map::Map(int width, int height) : width(width), height(height)
 {

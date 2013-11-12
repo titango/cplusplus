@@ -8,11 +8,10 @@ class Game
         Character *player;
         Map *map;
 
-        Game();
+        Game(int wi, int he);
         ~Game();
         void update();
         void generate();
 };
 
-extern Game game;
 #endif

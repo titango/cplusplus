@@ -3,9 +3,9 @@
 #include "Map.hpp"
 #include "Game.hpp"
 
-Game::Game()
+Game::Game(int wi, int he)
 {
-    TCODConsole::initRoot(80,50,"Lock & Chase: Thief edition", false);
+    TCODConsole::initRoot(wi,he,"Lock & Chase: Thief edition", false);
     player = new Character(40,25,'O', TCODColor::white);
     characters.push(player);
     characters.push(new Character(60,13,'X',TCODColor::yellow));

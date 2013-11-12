@@ -6,7 +6,7 @@ LIBTCODFLAGS = -Iinclude -L. -ltcod -ltcodxx -Wl,-rpath=.
 ALLFILES = src/*.cpp
 
 all : $(OBJS)
-	$(CC) $(ALLFILES) $(LIBTCODFLAGS) -o tuto
+	$(CC) $(ALLFILES) $(LIBTCODFLAGS) -o LockAndChase
 
 clean :
-	\rm *.o tuto
+	\rm *.o LockAndChase
