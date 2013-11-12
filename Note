@@ -1,0 +1,3 @@
+Reference:
+1. libtcod tut 2 -> some similar function but with different data types
+Example: using 2d arrays, not using struct but classes
