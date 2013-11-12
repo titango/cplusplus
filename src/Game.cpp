@@ -9,7 +9,7 @@ Game::Game(int wi, int he)
     player = new Character(40,25,'O', TCODColor::white);
     characters.push(player);
     characters.push(new Character(60,13,'X',TCODColor::yellow));
-    map = new Map(80,45);
+    map = new Map(wi,he);
 }
 
 Game::~Game()

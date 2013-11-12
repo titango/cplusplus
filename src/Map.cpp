@@ -30,15 +30,15 @@ void Map::setWall(int x, int y)
 
 void Map::generate() const
 {
-    static const TCODColor darkWall(0,0,100);
-    static const TCODColor darkGround(50,50,150);
+    static const TCODColor Wall = TCODColor::darkBlue;
+    static const TCODColor darkGround = TCODColor::darkerGrey;
 
     for(int x = 0; x < width; x++)
     {
         for(int y = 0; y < height;y++)
         {
             TCODConsole::root->setCharBackground(x,y,
-                    isWall(x,y) ? darkWall : darkGround) ;
+                    isWall(x,y) ? Wall : darkGround) ;
         }
     }
 }
