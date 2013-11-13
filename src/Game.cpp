@@ -1,7 +1,4 @@
-#include "libtcod.hpp"
-#include "Character.hpp"
-#include "Map.hpp"
-#include "Game.hpp"
+#include "headers.hpp"
 
 Game::Game()
 {

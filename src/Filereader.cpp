@@ -1,6 +1,6 @@
-#include "Filereader.hpp"
+#include "headers.hpp"
 
-Filereader::Filereader()
+Filereader::Filereader(Map* m) : map(m)
 {
 }
 
@@ -31,41 +31,37 @@ Ground** Filereader::readFile(std::string mapname)
             height++;
         }
 
-        cout << width << endl;
-        cout << height << endl;
+        map->width = width;
+        map->height = height;
 
         //reset cursor to the beginning
         ios.clear();
         ios.seekg(0,ios::beg);
 
         //make 2d array
-        //g = new Ground*[width];
-        //for(int i = 0; i < width; i++)
-        //{
-            //g[i] = new Ground[height];
-        //}
+        g = new Ground*[width];
+        for(int i = 0; i < width; i++)
+        {
+            g[i] = new Ground[height];
+        }
 
         //loop again and put into the array
-        //while(getline(ios,line))
-        //{
-           //for(int i = 0; i < line.size(); i++) 
-           //{
-                //if(line.at(i) == '#')
-                //{
-                     
-                //}
-           //}
-        //}
+        while(getline(ios,line))
+        {
+            for(int i = 0; i < line.size(); i++) 
+            {
+                g[i][nextHeight].symbol = line.at(i);
+                cout << g[i][nextHeight].symbol;
+            }
+            nextHeight++;
+            cout << endl;
+        }
+
 
         ios.close();
     }else{
         cout << "Unable to open" ;
     }
 
-        g = new Ground*[44];
-        for(int i = 0; i < 44; i++)
-        {
-            g[i] = new Ground[13];
-        }
     return g;
 }

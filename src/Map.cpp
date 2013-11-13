@@ -1,17 +1,22 @@
-#include "libtcod.hpp"
-#include "Map.hpp"
+#include "headers.hpp"
 
 Map::Map()
 {
-    //2d array for grounds
-    //grounds = new Ground*[width];
-    //for(int i = 0; i < width; i++)
-    //{
-        //grounds[i] = new Ground[height];
-    //}
-    fileread = new Filereader();
+    fileread = new Filereader(this);
     string map = "map.txt";
     grounds = fileread->readFile(map);
+
+    //setting walls
+    for(int i = 0; i < width; i++)
+    {
+        for(int j = 0; j < height; j++) 
+        {
+            if(grounds[i][j].symbol == '#') 
+            {
+                setWall(i,j);
+            }
+        }
+    }
 }
 
 Map::~Map()

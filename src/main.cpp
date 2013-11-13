@@ -1,12 +1,4 @@
-#include "libtcod.hpp"
-#include <iostream>
-#include <string>
-#include <fstream>
-#include <sstream>
-
-#include "Character.hpp"
-#include "Map.hpp"
-#include "Game.hpp"
+#include "headers.hpp"
 
 using namespace std;
 int main(){

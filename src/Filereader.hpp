@@ -1,20 +1,14 @@
 #ifndef _FILEREADER_H
 #define _FILEREADER_H
 
-#include <string>
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include "Ground.hpp"
-
 using namespace std;
 
 class Filereader
 {
-    //Map* map;
+    Map* map;
 
     public:
-        Filereader();
+        Filereader(Map* map);
         Ground **readFile(std::string mapname);
 };
 #endif

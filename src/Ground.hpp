@@ -4,6 +4,7 @@
 class Ground
 {
     public:
+        int symbol;
         Ground() : canWalk(true) {};
         bool canWalk;
         
