@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <sstream>
 
 #include "Character.hpp"
 #include "Map.hpp"
@@ -9,22 +10,7 @@
 
 using namespace std;
 int main(){
-    Game *game = new Game(100,100);
-    ifstream ios;
-    string line; 
-    ios.open("map.txt");
-    if(ios.is_open())
-    {
-        while (ios)
-        {
-            getline(ios,line);
-            cout << line << "\n";
-        }
-
-        ios.close();
-    }else{
-        cout << "Unable to open" ;
-    }
+    Game *game = new Game();
 
     while ( !TCODConsole::isWindowClosed()){
         game->update();

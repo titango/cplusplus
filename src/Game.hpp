@@ -8,7 +8,7 @@ class Game
         Character *player;
         Map *map;
 
-        Game(int wi, int he);
+        Game();
         ~Game();
         void update();
         void generate();
