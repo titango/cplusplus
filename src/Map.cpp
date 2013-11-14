@@ -56,6 +56,10 @@ void Map::componentRendering()
             { 
                 player = new Character(i,j,'O', TCODColor::white);
                 characters.push(player);
+            }else if(grounds[i][j].symbol == 'X')
+            {
+                Character *guard = new Guard(i,j,'X',TCODColor::yellow);
+                characters.push(guard);
             }
             
         }
