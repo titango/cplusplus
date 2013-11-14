@@ -4,11 +4,9 @@
 class Game
 {
     public:
-        TCODList<Character *> characters;
-        Character *player;
         Map *map;
 
-        Game();
+        Game(string mapname);
         ~Game();
         void update();
         void generate();

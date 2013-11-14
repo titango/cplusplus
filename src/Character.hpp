@@ -6,6 +6,7 @@ class Character
 
     public:
         int x,y; // position on map
+        int originalx,originaly; //original positions of x and y
         int symbol; // symbol on map like '@', 'O'
 
         TCODColor color; // color on map

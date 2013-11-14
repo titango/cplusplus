@@ -6,13 +6,18 @@ class Map
 
     public:
         int width, height;
-        Map();
+        TCODList<Character *> characters;
+        Character *player;
+        Map(string mapname);
         ~Map();
+
         bool isWall(int x, int y) const;
-        void generate() const;
+        void generate();
+        void componentRendering();
 
     protected:
         Filereader *fileread;
+
         void setWall(int x, int y);
         Ground **grounds;
 };

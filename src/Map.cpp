@@ -1,26 +1,17 @@
 #include "headers.hpp"
 
-Map::Map()
+Map::Map(string mapname)
 {
     fileread = new Filereader(this);
-    string map = "map.txt";
-    grounds = fileread->readFile(map);
+    grounds = fileread->readFile(mapname);
 
-    //setting walls
-    for(int i = 0; i < width; i++)
-    {
-        for(int j = 0; j < height; j++) 
-        {
-            if(grounds[i][j].symbol == '#') 
-            {
-                setWall(i,j);
-            }
-        }
-    }
+    //setting all
+    componentRendering();
 }
 
 Map::~Map()
 {
+    characters.clearAndDelete();
     delete [] grounds;
 }
 
@@ -34,7 +25,7 @@ void Map::setWall(int x, int y)
     grounds[x][y].canWalk = false;
 }
 
-void Map::generate() const
+void Map::generate()
 {
     static const TCODColor Wall = TCODColor::darkBlue;
     static const TCODColor darkGround = TCODColor::darkerGrey;
@@ -49,3 +40,24 @@ void Map::generate() const
     }
 }
 
+void Map::componentRendering()
+{
+    for(int i = 0; i < width; i++)
+    {
+        for(int j = 0; j < height; j++) 
+        {
+            //setting walls
+            if(grounds[i][j].symbol == '#') 
+            {
+                setWall(i,j);
+            }
+            //setting characters
+            else if(grounds[i][j].symbol == 'O')
+            { 
+                player = new Character(i,j,'O', TCODColor::white);
+                characters.push(player);
+            }
+            
+        }
+    }
+}

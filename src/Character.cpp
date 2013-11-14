@@ -1,7 +1,7 @@
 #include "headers.hpp"
 
 Character::Character(int x, int y, int sym, const TCODColor &color) :
-    x(x),y(y),symbol(sym),color(color)
+    x(x),y(y),originalx(x),originaly(y),symbol(sym),color(color)
 {    
 }
 

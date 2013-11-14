@@ -1,9 +1,28 @@
 #include "headers.hpp"
 
 using namespace std;
-int main(){
-    Game *game = new Game();
+int main(int argc, char *argv[]){
 
+    //Check arguments
+    if(argc < 2 )
+    {
+        cout << "Missing map file. Program exit!" << endl;
+        return 1;
+    }else if(argc > 2)
+    {
+        cout << "Too many arguments. Should only be 2" << endl;
+        return 1;
+    }
+
+    stringstream ss;
+    string mapname;
+    
+    //Get map from second argument
+    ss << argv[1];
+    ss >> mapname;
+    Game *game = new Game(mapname);
+
+    //Run the game
     while ( !TCODConsole::isWindowClosed()){
         game->update();
         game->generate();

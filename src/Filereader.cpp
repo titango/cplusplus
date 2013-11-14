@@ -15,7 +15,7 @@ Ground** Filereader::readFile(std::string mapname)
     Ground **g;
 
     // read map file
-    ios.open("map.txt");
+    ios.open((char*)mapname.c_str());
     if(ios.is_open())
     {
         while(getline(ios,line))
@@ -51,10 +51,8 @@ Ground** Filereader::readFile(std::string mapname)
             for(int i = 0; i < line.size(); i++) 
             {
                 g[i][nextHeight].symbol = line.at(i);
-                cout << g[i][nextHeight].symbol;
             }
             nextHeight++;
-            cout << endl;
         }
 
 

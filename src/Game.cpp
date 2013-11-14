@@ -1,17 +1,14 @@
 #include "headers.hpp"
 
-Game::Game()
+Game::Game(string mapname)
 {
-    map = new Map();
-    TCODConsole::initRoot(map->width,map->height,"Lock & Chase: Thief edition", false);
-    player = new Character(1,1,'O', TCODColor::white);
-    characters.push(player);
-    characters.push(new Character(60,13,'X',TCODColor::yellow));
+    map = new Map(mapname);
+    TCODConsole::initRoot(map->width,map->height,
+            "Lock & Chase: Thief edition", false);
 }
 
 Game::~Game()
 {
-    characters.clearAndDelete();
     delete map;
 }
 
@@ -22,23 +19,23 @@ void Game::update()
     switch(key.vk)
     {
         case TCODK_UP : 
-            if ( ! map->isWall(player->x,player->y-1)) {
-                player->y--;   
+            if ( ! map->isWall(map->player->x,map->player->y-1)) {
+                map->player->y--;   
             }
         break;
         case TCODK_DOWN : 
-        if ( ! map->isWall(player->x,player->y+1)) {
-            player->y++;
+        if ( ! map->isWall(map->player->x,map->player->y+1)) {
+            map->player->y++;
         }
         break;
         case TCODK_LEFT : 
-        if ( ! map->isWall(player->x-1,player->y)) {
-            player->x--;
+        if ( ! map->isWall(map->player->x-1,map->player->y)) {
+            map->player->x--;
         }
         break;
         case TCODK_RIGHT : 
-        if ( ! map->isWall(player->x+1,player->y)) {
-            player->x++;
+        if ( ! map->isWall(map->player->x+1,map->player->y)) {
+            map->player->x++;
         }
         break;
         default:break;
@@ -50,8 +47,8 @@ void Game::generate()
     TCODConsole::root->clear();
     map->generate();
 
-    for(Character ** iterators=characters.begin();
-            iterators != characters.end(); iterators++)
+    for(Character ** iterators=map->characters.begin();
+            iterators != map->characters.end(); iterators++)
     {
         (*iterators)->generate();
     }
