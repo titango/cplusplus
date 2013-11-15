@@ -5,6 +5,7 @@
 
 #include "libtcod.hpp"
 class Map;
+#include "Item.hpp"
 #include "Character.hpp"
 #include "Guard.hpp"
 #include "Ground.hpp"

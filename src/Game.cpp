@@ -15,7 +15,46 @@ Game::~Game()
 void Game::update()
 {
     TCOD_key_t key;
+    bool touchedGuard = false;
     TCODSystem::checkForEvent(TCOD_EVENT_KEY_PRESS, &key, NULL);
+
+    //Check for touching items
+
+    for(Item ** iterators=map->items.begin();
+            iterators != map->items.end(); iterators++)
+    {
+        Item *item = *iterators;
+        if(map->player->interactItem(item))
+        {
+            removedItems.push(item);
+            map->items.remove(item);
+            break;
+        }
+    }
+    
+    //Check for touching the guard
+    for(Character ** iterators=map->characters.begin();
+            iterators != map->characters.end(); iterators++)
+    {
+        Character *cha = *iterators;
+        if(cha != map->player)
+        {     
+            touchedGuard = map->player->interactCharacter(cha);
+            if(touchedGuard)
+            {
+                break; 
+            }
+        }
+    }
+
+    //Reposition if touched
+    if(touchedGuard)
+    {
+        map->player->x = map->player->originalx; 
+        map->player->y = map->player->originaly;
+    }
+
+    //Recieve key and check Wall
     switch(key.vk)
     {
         case TCODK_UP : 
@@ -47,8 +86,16 @@ void Game::generate()
     TCODConsole::root->clear();
     map->generate();
 
+    //Generate characters
     for(Character ** iterators=map->characters.begin();
             iterators != map->characters.end(); iterators++)
+    {
+        (*iterators)->generate();
+    }
+
+    //Generate items
+    for(Item ** iterators=map->items.begin();
+            iterators != map->items.end(); iterators++)
     {
         (*iterators)->generate();
     }

@@ -5,6 +5,7 @@ class Game
 {
     public:
         Map *map;
+        TCODList<Item* >removedItems;
 
         Game(string mapname);
         ~Game();
@@ -12,4 +13,5 @@ class Game
         void generate();
 };
 
+extern Game *game;
 #endif

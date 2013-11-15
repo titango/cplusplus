@@ -1,6 +1,9 @@
 #include "headers.hpp"
 
 using namespace std;
+
+Game *game;
+
 int main(int argc, char *argv[]){
 
     //Check arguments
@@ -20,8 +23,9 @@ int main(int argc, char *argv[]){
     //Get map from second argument
     ss << argv[1];
     ss >> mapname;
-    Game *game = new Game(mapname);
 
+    game = new Game(mapname);
+    
     //Run the game
     while ( !TCODConsole::isWindowClosed()){
         game->update();

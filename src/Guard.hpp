@@ -4,7 +4,7 @@
 class Guard : public Character
 {
     public:
-        Guard(int x, int y, int sym, const TCODColor &color);
+        Guard(std::string name, int x, int y, int sym, const TCODColor &color);
         void automove();
 };
 

@@ -7,6 +7,7 @@ class Map
     public:
         int width, height;
         TCODList<Character *> characters;
+        TCODList<Item *> items;
         Character *player;
         Map(string mapname);
         ~Map();

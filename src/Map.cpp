@@ -27,15 +27,22 @@ void Map::setWall(int x, int y)
 
 void Map::generate()
 {
-    static const TCODColor Wall = TCODColor::darkBlue;
-    static const TCODColor darkGround = TCODColor::darkerGrey;
+    static const TCODColor Wall = TCODColor::darkerBlue;
+    static const TCODColor blackGround = TCODColor::black;
 
     for(int x = 0; x < width; x++)
     {
         for(int y = 0; y < height;y++)
         {
-            TCODConsole::root->setCharBackground(x,y,
-                    isWall(x,y) ? Wall : darkGround) ;
+            if( isWall(x,y))
+            {
+                TCODConsole::root->setCharBackground(x,y,blackGround); 
+                TCODConsole::root->setCharForeground(x,y,Wall);
+                TCODConsole::root->setChar(x,y,'#');
+            }else 
+            {
+                TCODConsole::root->setCharBackground(x,y,blackGround); 
+            }
         }
     }
 }
@@ -54,14 +61,31 @@ void Map::componentRendering()
             //setting characters
             else if(grounds[i][j].symbol == 'O')
             { 
-                player = new Character(i,j,'O', TCODColor::white);
+                player = new Character("player",i,j,'O', TCODColor::white);
                 characters.push(player);
+            //setting guards
             }else if(grounds[i][j].symbol == 'X')
             {
-                Character *guard = new Guard(i,j,'X',TCODColor::yellow);
+                Character *guard = new Guard("guard",i,j,'X',TCODColor::yellow);
                 characters.push(guard);
-            }
+            //setting money
+            }else if(grounds[i][j].symbol == '$')
+            {
+                Item *money = new Item("money",i,j,'$',TCODColor::green);
+                items.push(money);
+            //setting keys
+            }else if(grounds[i][j].symbol == '+')
+            {
+                Item *key = new Item("key",i,j,'+',TCODColor::cyan);
+                items.push(key);
             
+            //setting lock
+            }else if(grounds[i][j].symbol == '\\')
+            {
+                Item *lock = new Item("lock",i,j,'\\',TCODColor::red);
+                items.push(lock);
+            
+            }
         }
     }
 }
