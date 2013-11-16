@@ -17,6 +17,7 @@ int main(int argc, char *argv[]){
         return 1;
     }
 
+    //TCODSystem::setFps(90);
     stringstream ss;
     string mapname;
     
@@ -25,12 +26,24 @@ int main(int argc, char *argv[]){
     ss >> mapname;
 
     game = new Game(mapname);
+    bool printed = true;
     
     //Run the game
     while ( !TCODConsole::isWindowClosed()){
+        clock_t start = clock();
         game->update();
         game->generate();
         TCODConsole::flush();
+        clock_t end = clock();
+        game->totalClockTick = game->totalClockTick + (end - start) + 115;
+        game->totalTime = 
+            (game->totalClockTick/CLOCKS_PER_SEC);
+        cout << game->totalTime << "\n";
+        //if(game->totalTime > 12 && printed)
+        //{
+            //cout << "Greater than " << game->totalTime <<"\n" ;
+            //printed = false;
+        //}
     }
     return 0;
 }

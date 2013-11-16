@@ -1,6 +1,6 @@
 #include "headers.hpp"
 
-Game::Game(string mapname)
+Game::Game(string mapname) : totalTime(0.0),totalClockTick(0.0)
 {
     map = new Map(mapname);
     TCODConsole::initRoot(map->width,map->height,
@@ -17,6 +17,18 @@ void Game::update()
     TCOD_key_t key;
     bool touchedGuard = false;
     TCODSystem::checkForEvent(TCOD_EVENT_KEY_PRESS, &key, NULL);
+     
+    //Guard automove
+    for(Character ** iterators=map->characters.begin();
+            iterators != map->characters.end(); iterators++)
+    {
+        Character *cha = *iterators;
+        if(cha != map->player)
+        {
+            Guard *gua = (Guard*)cha;
+            gua->automove();
+        }
+    }
 
     //Check for touching items
 
@@ -66,7 +78,7 @@ void Game::update()
     switch(key.vk)
     {
         case TCODK_UP : 
-            if ( ! map->isWall(map->player->x,map->player->y-1)) {
+            if ( ! map->isWall(map->player->x,map->player->y-1)) { 
                 map->player->y--;   
             }
         break;
@@ -107,4 +119,5 @@ void Game::generate()
     {
         (*iterators)->generate();
     }
+
 }

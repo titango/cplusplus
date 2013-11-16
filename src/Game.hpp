@@ -4,6 +4,8 @@
 class Game
 {
     public:
+        double totalTime;
+        double totalClockTick;
         Map *map;
         TCODList<Item* >removedItems;
 
