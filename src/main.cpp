@@ -38,12 +38,6 @@ int main(int argc, char *argv[]){
         game->totalClockTick = game->totalClockTick + (end - start) + 115;
         game->totalTime = 
             (game->totalClockTick/CLOCKS_PER_SEC);
-        cout << game->totalTime << "\n";
-        //if(game->totalTime > 12 && printed)
-        //{
-            //cout << "Greater than " << game->totalTime <<"\n" ;
-            //printed = false;
-        //}
     }
     return 0;
 }

@@ -1,6 +1,6 @@
 #include "headers.hpp"
 
-Guard::Guard(std::string name,int x, int y, int sym, const TCODColor &color) :
+Guard::Guard(string name,int x, int y, int sym, const TCODColor &color) :
     Character(name,x,y,sym,color)
 {    
 }
@@ -36,4 +36,15 @@ void Guard::automove()
 
         game->totalClockTick = 0;
     }
+}
+
+bool Guard::detectPlayer()
+{
+    if(abs(this->x - game->map->player->x) < 4 && 
+            abs(this->y - game->map->player->y) < 4)
+    {
+        return true; 
+    }
+
+    return false;
 }

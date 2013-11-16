@@ -62,9 +62,13 @@ void Game::update()
     //Reposition if touched
     if(touchedGuard)
     {
-        //reposition player
-        map->player->x = map->player->originalx; 
-        map->player->y = map->player->originaly;
+        //reposition characters
+        for(Character ** iterators=game->map->characters.begin();
+                iterators != game->map->characters.end(); iterators++)
+        {
+            (*iterators)->x = (*iterators)->originalx; 
+            (*iterators)->y = (*iterators)->originaly; 
+        }
 
         //reposition items
         for(Item ** iterators=removedItems.begin();

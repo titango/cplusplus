@@ -4,6 +4,7 @@
 #include <fstream>
 #include <sstream>
 
+using namespace std;
 #include "libtcod.hpp"
 class Map;
 #include "Ground.hpp"
