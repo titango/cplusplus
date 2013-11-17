@@ -3,10 +3,22 @@
 
 class Game
 {
+    private: 
+        void checkMap();
+        void aiNPC();
+        void playerKey();
+        void reposition();
+        void collectingItems();
+
     public:
+        int life;
         double totalTime;
         double totalClockTick;
+        int playerPoint;
+        bool mapChecked;
+
         Map *map;
+        InfoPanel *infopanel;
         TCODList<Item* >removedItems;
 
         Game(string mapname);

@@ -4,9 +4,10 @@
 class Guard : public Character
 {
     public:
-        Guard(std::string name, int x, int y, int sym, const TCODColor &color);
-        void automove();
-        bool detectPlayer();
+    Guard(std::string name, int x, int y, int sym, const TCODColor &color);
+    void automove();
+    void chasePlayer();
+    bool detectPlayer();
 };
 
 #endif

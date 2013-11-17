@@ -32,6 +32,7 @@ Ground** Filereader::readFile(std::string mapname)
         }
 
         map->width = width;
+        height = height + 10;
         map->height = height;
 
         //reset cursor to the beginning
@@ -48,11 +49,22 @@ Ground** Filereader::readFile(std::string mapname)
         //loop again and put into the array
         while(getline(ios,line))
         {
-            for(int i = 0; i < line.size(); i++) 
+            if(!ios.eof())
             {
-                g[i][nextHeight].symbol = line.at(i);
+                for(int i = 0; i < width; i++) 
+                {
+                    g[i][nextHeight].symbol = line.at(i);
+                }
+            }else
+            {
+                for(int i = 0; i < width; i++) 
+                {
+                    g[i][nextHeight].symbol = '.';
+                }
+            
             }
-            nextHeight++;
+            
+            nextHeight++; 
         }
 
 

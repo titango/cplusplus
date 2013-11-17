@@ -1,6 +1,9 @@
 #include "headers.hpp"
 
-Map::Map(string mapname)
+Map::Map(string mapname) : 
+    numberOfKey(0),numberOfDoor(0),doorLocked(true),
+    hasPlayer(false),hasDoor(false),hasKey(false),hasGuard(false),
+    hasMoney(false),amountOfMoney(0),initialNumberOfKey(0)
 {
     fileread = new Filereader(this);
     grounds = fileread->readFile(mapname);
@@ -12,7 +15,9 @@ Map::Map(string mapname)
 Map::~Map()
 {
     characters.clearAndDelete();
+    delete player;
     delete [] grounds;
+    delete fileread;
 }
 
 bool Map::isWall(int x, int y) const
@@ -38,7 +43,7 @@ void Map::generate()
             {
                 TCODConsole::root->setCharBackground(x,y,blackGround); 
                 TCODConsole::root->setCharForeground(x,y,Wall);
-                TCODConsole::root->setChar(x,y,'#');
+                TCODConsole::root->setChar(x,y,WALL);
             }else 
             {
                 TCODConsole::root->setCharBackground(x,y,blackGround); 
@@ -54,35 +59,44 @@ void Map::componentRendering()
         for(int j = 0; j < height; j++) 
         {
             //setting walls
-            if(grounds[i][j].symbol == '#') 
+            if(grounds[i][j].symbol == WALL) 
             {
                 setWall(i,j);
             }
             //setting characters
-            else if(grounds[i][j].symbol == 'O')
+            else if(grounds[i][j].symbol == PLAYER)
             { 
-                player = new Character("player",i,j,'O', TCODColor::white);
+                hasPlayer = true;
+                player = new Character("player",i,j,PLAYER, TCODColor::white);
                 characters.push(player);
             //setting guards
-            }else if(grounds[i][j].symbol == 'X')
+            }else if(grounds[i][j].symbol == GUARD)
             {
-                Character *guard = new Guard("guard",i,j,'X',TCODColor::yellow);
+                hasGuard = true;
+                Character *guard = new Guard("guard",i,j,GUARD,TCODColor::orange);
                 characters.push(guard);
             //setting money
-            }else if(grounds[i][j].symbol == '$')
+            }else if(grounds[i][j].symbol == MONEY)
             {
-                Item *money = new Item("money",i,j,'$',TCODColor::green);
+                hasMoney = true;
+                Item *money = new Item("money",i,j,MONEY,TCODColor::green);
                 items.push(money);
+                amountOfMoney++;
             //setting keys
-            }else if(grounds[i][j].symbol == '+')
+            }else if(grounds[i][j].symbol == KEY)
             {
-                Item *key = new Item("key",i,j,'+',TCODColor::cyan);
+                hasKey = true;
+                numberOfKey++;
+                initialNumberOfKey++;
+                Item *key = new Item("key",i,j,KEY,TCODColor::cyan);
                 items.push(key);
             
             //setting lock
-            }else if(grounds[i][j].symbol == '\\')
+            }else if(grounds[i][j].symbol == LOCK)
             {
-                Item *lock = new Item("lock",i,j,'\\',TCODColor::red);
+                hasDoor = true;
+                numberOfDoor++;
+                Item *lock = new Item("lock",i,j,LOCK,TCODColor::red);
                 items.push(lock);
             
             }

@@ -3,6 +3,9 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <math.h>
+#include <vector>
+#include <map>
 
 using namespace std;
 #include "libtcod.hpp"
@@ -13,4 +16,5 @@ class Map;
 #include "Guard.hpp"
 #include "Filereader.hpp"
 #include "Map.hpp"
+#include "InfoPanel.hpp"
 #include "Game.hpp"
