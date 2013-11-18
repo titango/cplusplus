@@ -1,5 +1,5 @@
-#include <ctime>
 #include <string>
+#include <ctime>
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -16,5 +16,6 @@ class Map;
 #include "Guard.hpp"
 #include "Filereader.hpp"
 #include "Map.hpp"
+#include "Message.hpp"
 #include "InfoPanel.hpp"
 #include "Game.hpp"

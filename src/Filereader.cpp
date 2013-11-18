@@ -35,6 +35,10 @@ Ground** Filereader::readFile(std::string mapname)
         height = height + 10;
         map->height = height;
 
+        cout << "WIDTH: " << width << "\n";
+        cout << "HEIGHT: " << height << "\n";
+
+
         //reset cursor to the beginning
         ios.clear();
         ios.seekg(0,ios::beg);

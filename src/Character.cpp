@@ -15,7 +15,8 @@ bool Character::interactCharacter(Character *cha)
 {
     if(this->x == cha->x && this->y == cha->y) 
     {
-        cout << "The player touches the guard!" << endl; 
+        //cout << "The player touches the guard!" << endl; 
+        game->infopanel->message(TCODColor::red, "The player touch the guard");
         return true;
     }
 
@@ -28,7 +29,25 @@ bool Character::interactItem(Item *item)
 {
     if(this->x == item->x && this->y == item->y) 
     {
-        cout << "The player touches the item!" << endl; 
+        if(item->symbol == MONEY)
+        {
+            stringstream ss;
+            ss << MONEY_POINT;
+            string textmessage = "Player collects money and gain ";
+            textmessage.append(ss.str());
+            textmessage.append(" points");
+            game->infopanel->message(TCODColor::green,
+                    textmessage); 
+        }else if(item->symbol == KEY)
+        {  
+            stringstream ss;
+            ss << KEY_POINT;
+            string textmessage = "Player collects key and gain ";
+            textmessage.append(ss.str());
+            textmessage.append(" points");
+            game->infopanel->message(TCODColor::cyan,
+                    textmessage); 
+        }
         return true;
     }
 

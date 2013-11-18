@@ -54,6 +54,8 @@ void Guard::chasePlayer()
     if(game->totalTime > 0.3)
     {
         std::map<string,double> tempma;
+        std::vector<int> coorx;
+        std::vector<int> coory;
         string label = "";
         tempma.insert(std::pair<string,double>(
                     "right",
@@ -99,16 +101,24 @@ void Guard::chasePlayer()
 
         if(label.compare("top") == 0)
         {
-            this->y--; 
+            if ( ! game->map->isWall(this->x,this->y-1)) {
+                this->y--; 
+            }
         }else if(label.compare("down") == 0)
         {
-            this->y++; 
+            if ( ! game->map->isWall(this->x,this->y+1)) {
+                this->y++; 
+            }
         }else if(label.compare("left") == 0)
         {
-            this->x--; 
+            if ( ! game->map->isWall(this->x-1,this->y)) {
+                this->x--; 
+            }
         }else if(label.compare("right") == 0)
         {
-            this->x++; 
+            if ( ! game->map->isWall(this->x+1,this->y)) {
+                this->x++; 
+            }
         }
         game->totalClockTick = 0;
 

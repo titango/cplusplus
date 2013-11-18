@@ -3,8 +3,13 @@
 
 class InfoPanel
 {
+    private: 
+        void drawLifePanel();
+        void drawMessageBox();
+
     protected:
         TCODConsole *console;
+        TCODList<Message *> messagelog;
         
         void generateLifePanel();
 
@@ -13,6 +18,7 @@ class InfoPanel
         ~InfoPanel(); 
 
         void generate();
+        void message(const TCODColor &color, const string text);
 
 };
 #endif
