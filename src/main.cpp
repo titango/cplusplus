@@ -35,9 +35,10 @@ int main(int argc, char *argv[]){
         game->generate();
         TCODConsole::flush();
         clock_t end = clock();
-        game->totalClockTick = game->totalClockTick + (end - start) + 115;
+        game->totalClockTick = game->totalClockTick + (end - start) + 145;
         game->totalTime = 
             (game->totalClockTick/CLOCKS_PER_SEC);
+        
     }
     return 0;
 }

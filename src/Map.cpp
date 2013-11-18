@@ -73,7 +73,8 @@ void Map::componentRendering()
             }else if(grounds[i][j].symbol == GUARD)
             {
                 hasGuard = true;
-                Character *guard = new Guard("guard",i,j,GUARD,TCODColor::orange);
+                Character *guard = new Guard("guard",i,j,GUARD,
+                        TCODColor::orange);
                 characters.push(guard);
             //setting money
             }else if(grounds[i][j].symbol == MONEY)
@@ -96,7 +97,8 @@ void Map::componentRendering()
             {
                 hasDoor = true;
                 numberOfDoor++;
-                Item *lock = new Item("lock",i,j,LOCK,TCODColor::red);
+                TCODColor *te = new TCODColor(102,102,0);
+                Item *lock = new Item("lock",i,j,LOCK,*te);
                 items.push(lock);
             
             }

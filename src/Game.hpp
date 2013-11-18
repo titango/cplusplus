@@ -4,6 +4,7 @@
 class Game
 {
     private: 
+
         void checkMap();
         void aiNPC();
         void playerKey();

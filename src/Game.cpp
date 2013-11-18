@@ -142,11 +142,44 @@ void Game::aiNPC()
             if(!detected)
             {
                 //Guards move auto if not detect
+                gua->alertedGuard = 2;
                 gua->automove(); 
+
+                if(gua->escape == 2)
+                {
+                    gua->escape = 1; 
+                }
+                TCODColor *te = new TCODColor(255,112,77);
+                gua->color = *te;
+                
+                if(gua->escape == 1)
+                {
+                    te = new TCODColor(51,102,255);
+                    game->infopanel->message(*te, 
+                            "You escaped from the guard"); 
+                }
+
+                gua->escape = 0;
             }else
             {
+
                 //Guards detected player
+                gua->escape = 2;
                 gua->chasePlayer();
+                gua->color = TCODColor::red;
+
+                if(gua->alertedGuard == 2)
+                {
+                    gua->alertedGuard = 1; 
+                }
+
+                if(gua->alertedGuard == 1)
+                {
+                    game->infopanel->message(TCODColor::red, 
+                        "You alerted the guard"); 
+                }
+
+                gua->alertedGuard = 0;
             }
         }
     }

@@ -1,7 +1,7 @@
 #include "headers.hpp"
 
 Guard::Guard(string name,int x, int y, int sym, const TCODColor &color) :
-    Character(name,x,y,sym,color)
+    Character(name,x,y,sym,color), alertedGuard(0)
 {    
 }
 
@@ -56,38 +56,64 @@ void Guard::chasePlayer()
         std::map<string,double> tempma;
         std::vector<int> coorx;
         std::vector<int> coory;
+        std::vector<string> posi;
         string label = "";
-        tempma.insert(std::pair<string,double>(
-                    "right",
-                    (abs(this->x+1-game->map->player->x)*
-                     abs(this->x+1-game->map->player->x)+
-                     abs(this->y - game->map->player->y)*
-                     abs(this->y - game->map->player->y)
-                    )));
-        tempma.insert(std::pair<string,double>(
-                    "left",
-                    (abs(this->x-1-game->map->player->x)*
-                     abs(this->x-1-game->map->player->x)+
-                     abs(this->y - game->map->player->y)*
-                     abs(this->y - game->map->player->y)
-                    )));
-        tempma.insert(std::pair<string,double>(
-                    "top",
-                    (abs(this->y-1-game->map->player->y)*
-                     abs(this->y-1-game->map->player->y)+
-                     abs(this->x - game->map->player->x)*
-                     abs(this->x - game->map->player->x)
-                    )));
-        tempma.insert(std::pair<string,double>(
-                    "down",
-                    (abs(this->y+1-game->map->player->y)*
-                     abs(this->y+1-game->map->player->y)+
-                     abs(this->x - game->map->player->x)*
-                     abs(this->x - game->map->player->x)
-                    )));
 
-        double tempvalue = tempma.at("right");
-        label = "right";
+        //Left
+        coorx.push_back(this->x-1);
+        coory.push_back(this->y);
+
+        //Top
+        coorx.push_back(this->x);
+        coory.push_back(this->y-1);
+
+        //Right
+        coorx.push_back(this->x+1);
+        coory.push_back(this->y);
+
+        //Down
+        coorx.push_back(this->x);
+        coory.push_back(this->y+1);
+
+        //Top-left
+        coorx.push_back(this->x-1);
+        coory.push_back(this->y-1);
+
+        //Top-right
+        coorx.push_back(this->x+1);
+        coory.push_back(this->y-1);
+
+        //Down-left
+        coorx.push_back(this->x-1);
+        coory.push_back(this->y+1);
+
+        //Down-right
+        coorx.push_back(this->x+1);
+        coory.push_back(this->y+1);
+
+        //Position
+        posi.push_back("left");
+        posi.push_back("top");
+        posi.push_back("right");
+        posi.push_back("down");
+        posi.push_back("topleft");
+        posi.push_back("topright");
+        posi.push_back("downleft");
+        posi.push_back("downright");
+
+        for(int i = 0; i < coorx.size(); i++)
+        {
+            tempma.insert(std::pair<string,double>(
+                        posi.at(i),
+                        (abs(coorx.at(i) - game->map->player->x)*
+                         abs(coorx.at(i) - game->map->player->x)+
+                         abs(coory.at(i) - game->map->player->y)*
+                         abs(coory.at(i) - game->map->player->y)
+                        ))); 
+        }
+
+        double tempvalue = tempma.at("left");
+        label = "left";
 
         for(std::map<string,double>::iterator it=tempma.begin();
                 it != tempma.end(); ++it)
@@ -118,6 +144,30 @@ void Guard::chasePlayer()
         {
             if ( ! game->map->isWall(this->x+1,this->y)) {
                 this->x++; 
+            }
+        }else if(label.compare("topleft") == 0)
+        {
+            if ( ! game->map->isWall(this->x-1,this->y-1)) {
+                this->x--; 
+                this->y--;
+            }
+        }else if(label.compare("topright") == 0)
+        {
+            if ( ! game->map->isWall(this->x+1,this->y-1)) {
+                this->x++; 
+                this->y--;
+            }
+        }else if(label.compare("downleft") == 0)
+        {
+            if ( ! game->map->isWall(this->x-1,this->y+1)) {
+                this->x--; 
+                this->y++;
+            }
+        }else if(label.compare("downright") == 0)
+        {
+            if ( ! game->map->isWall(this->x+1,this->y+1)) {
+                this->x++; 
+                this->y++;
             }
         }
         game->totalClockTick = 0;
