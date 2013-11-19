@@ -1,8 +1,13 @@
 #include "headers.hpp"
 
-InfoPanel::InfoPanel()
+InfoPanel::InfoPanel(int screenwidth, int screenheight)
 {
-    console = new TCODConsole(44,10);
+    lifepanelWidth = screenwidth * 1/8; 
+    lifepanelHeight = 2;
+
+    width = screenwidth;
+    height = 10;
+    console = new TCODConsole(width-5,height);
 }
 
 InfoPanel::~InfoPanel()
@@ -21,19 +26,19 @@ void InfoPanel::generate()
 
     //Draw messagebox
     float colorCoef=0.4f;
-    int he = 2;
+    int he = lifepanelHeight;
     for (Message **it=messagelog.begin(); it != messagelog.end(); it++) {
         Message *message=*it;
         console->setDefaultForeground(message->color * colorCoef);
-        console->print(16,he,message->text.c_str());
+        console->print(width *2/4,he,message->text.c_str());
         he++;
         if ( colorCoef < 1.0f ) {
                 colorCoef+=0.3f;
         }
     }
 
-    TCODConsole::blit(console,0,0,game->map->width,10,
-            TCODConsole::root,0,game->map->height - 10);
+    TCODConsole::blit(console,0,0,width,height,
+            TCODConsole::root,0,game->map->height - height);
 }
 
 void InfoPanel::drawLifePanel()
@@ -41,7 +46,7 @@ void InfoPanel::drawLifePanel()
 
     console->setDefaultForeground(TCODColor::white);
     string lifeword = "Life: ";
-    console->print(2,2, lifeword.c_str());
+    console->print(lifepanelWidth,lifepanelHeight, lifeword.c_str());
 
     console->setDefaultForeground(TCODColor::red);
     string lifepanel = "";
@@ -55,7 +60,7 @@ void InfoPanel::drawLifePanel()
         string temp(cha);        
         lifepanel.append(temp);
     }
-    console->print(8,2, lifepanel.c_str());
+    console->print(lifepanelWidth + 6,lifepanelHeight, lifepanel.c_str());
 }
 
 void InfoPanel::drawMessageBox()

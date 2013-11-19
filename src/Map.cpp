@@ -8,6 +8,16 @@ Map::Map(string mapname) :
     fileread = new Filereader(this);
     grounds = fileread->readFile(mapname);
 
+    int nextHeight = 0;
+    for(int i = 0; i < height; i++)
+    {
+        for(int j = 0; j < width; j++)
+        {
+            cout << (char)grounds[j][i].symbol;
+        }
+        cout << "\n";
+    }
+
     //setting all
     componentRendering();
 }
@@ -15,6 +25,7 @@ Map::Map(string mapname) :
 Map::~Map()
 {
     characters.clearAndDelete();
+    items.clearAndDelete();
     delete player;
     delete [] grounds;
     delete fileread;
@@ -23,6 +34,43 @@ Map::~Map()
 bool Map::isWall(int x, int y) const
 {
    return !grounds[x][y].canWalk;
+}
+
+bool Map::isGround(int x, int y) const
+{
+    bool iwalk = false;
+    bool icha = false;
+    bool iti = false;
+
+    if (grounds[x][y].canWalk == true) iwalk = true;
+
+    for(Character ** iterators=characters.begin();
+            iterators != characters.end(); iterators++)
+    {
+        Character *cha = *iterators;
+        if(cha->x == x && cha->y == y && cha != player)
+        {
+            icha = true; 
+        }
+    }
+
+    for(Item ** iterators=items.begin();
+            iterators != items.end(); iterators++)
+    {
+        Item *item = *iterators;
+        if(item->x == x && item->y == y)
+        {
+            iti = true; 
+        }
+    }
+
+    if(iwalk && !icha && !iti)
+    {
+        return true; 
+    }else
+    {
+        return false; 
+    }
 }
 
 void Map::setWall(int x, int y)
@@ -54,6 +102,7 @@ void Map::generate()
 
 void Map::componentRendering()
 {
+    cout << "RENDERING   " << width << "  " << height << "\n";
     for(int i = 0; i < width; i++)
     {
         for(int j = 0; j < height; j++) 
@@ -104,4 +153,9 @@ void Map::componentRendering()
             }
         }
     }
+
+    cout << "playerName: " << player->name <<player->x<<player->y << "\n";
+    cout << "Number of Key: " << numberOfKey << "\n";
+    cout << "Number of Door: " << numberOfDoor << "\n";
+    cout << "Number of Money: " << amountOfMoney << "\n";
 }

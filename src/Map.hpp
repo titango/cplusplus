@@ -25,6 +25,7 @@ class Map
         bool hasKey;
         bool hasGuard;
         bool hasMoney;
+        string currentMapName;
 
         TCODList<Character *> characters;
         TCODList<Item *> items;
@@ -33,6 +34,7 @@ class Map
         ~Map();
 
         bool isWall(int x, int y) const;
+        bool isGround(int x, int y) const;
         void generate();
         void componentRendering();
 

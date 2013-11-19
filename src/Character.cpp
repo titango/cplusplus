@@ -29,6 +29,7 @@ bool Character::interactItem(Item *item)
 {
     if(this->x == item->x && this->y == item->y) 
     {
+        cout << "Not in\n";
         if(item->symbol == MONEY)
         {
             stringstream ss;

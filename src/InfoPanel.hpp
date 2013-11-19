@@ -4,6 +4,11 @@
 class InfoPanel
 {
     private: 
+        int width;
+        int height;
+        int lifepanelWidth;
+        int lifepanelHeight;
+        int messageboxWidth;
         void drawLifePanel();
         void drawMessageBox();
 
@@ -14,7 +19,7 @@ class InfoPanel
         void generateLifePanel();
 
     public:
-        InfoPanel();
+        InfoPanel(int screenwidth, int screenheight);
         ~InfoPanel(); 
 
         void generate();
