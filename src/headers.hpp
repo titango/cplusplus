@@ -14,7 +14,7 @@ class Map;
 #include "Item.hpp"
 #include "Character.hpp"
 #include "Guard.hpp"
-#include "Filereader.hpp"
+#include "Maploader.hpp"
 #include "Map.hpp"
 #include "Message.hpp"
 #include "InfoPanel.hpp"

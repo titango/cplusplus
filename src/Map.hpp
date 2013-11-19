@@ -39,7 +39,7 @@ class Map
         void componentRendering();
 
     protected:
-        Filereader *fileread;
+        Maploader *fileread;
 
         void setWall(int x, int y);
         Ground **grounds;

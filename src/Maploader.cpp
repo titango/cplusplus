@@ -1,10 +1,10 @@
 #include "headers.hpp"
 
-Filereader::Filereader(Map* m) : map(m)
+Maploader::Maploader(Map* m) : map(m)
 {
 }
 
-Ground** Filereader::readFile(std::string mapname)
+Ground** Maploader::readFile(std::string mapname)
 {
     ifstream ios;
     string line; 
@@ -32,7 +32,7 @@ Ground** Filereader::readFile(std::string mapname)
         }
 
         map->width = width;
-        height = height + 10;
+        height = height + 15;
         map->height = height;
 
         //reset cursor to the beginning

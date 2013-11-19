@@ -9,8 +9,10 @@ class InfoPanel
         int lifepanelWidth;
         int lifepanelHeight;
         int messageboxWidth;
+        void drawPointPanel();
         void drawLifePanel();
         void drawMessageBox();
+        void drawCommandline();
 
     protected:
         TCODConsole *console;
@@ -19,6 +21,8 @@ class InfoPanel
         void generateLifePanel();
 
     public:
+        string commandline;
+        string commandisplay;
         InfoPanel(int screenwidth, int screenheight);
         ~InfoPanel(); 
 

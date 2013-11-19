@@ -1,14 +1,14 @@
-#ifndef _FILEREADER_H
-#define _FILEREADER_H
+#ifndef _MAPLOADER_H
+#define _MAPLOADER_H
 
 using namespace std;
 
-class Filereader
+class Maploader
 {
     Map* map;
 
     public:
-        Filereader(Map* map);
+        Maploader(Map* map);
         Ground **readFile(std::string mapname);
 };
 #endif

@@ -4,12 +4,12 @@
 class Game
 {
     private: 
-        
         int unlockdoor;
         void checkMap();
         void checkMapFile();
         void aiNPC();
         void playerKey();
+        void playerRun();
         void reposition();
         void collectingItems();
         void initializeGame(string mapname);
@@ -20,6 +20,7 @@ class Game
         double totalClockTick;
         int playerPoint;
         bool mapChecked;
+        bool commandActivated;
 
         Map *map;
         InfoPanel *infopanel;

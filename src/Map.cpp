@@ -5,18 +5,10 @@ Map::Map(string mapname) :
     hasPlayer(false),hasDoor(false),hasKey(false),hasGuard(false),
     hasMoney(false),amountOfMoney(0),initialNumberOfKey(0)
 {
-    fileread = new Filereader(this);
+    fileread = new Maploader(this);
     grounds = fileread->readFile(mapname);
 
     int nextHeight = 0;
-    for(int i = 0; i < height; i++)
-    {
-        for(int j = 0; j < width; j++)
-        {
-            cout << (char)grounds[j][i].symbol;
-        }
-        cout << "\n";
-    }
 
     //setting all
     componentRendering();
@@ -102,7 +94,6 @@ void Map::generate()
 
 void Map::componentRendering()
 {
-    cout << "RENDERING   " << width << "  " << height << "\n";
     for(int i = 0; i < width; i++)
     {
         for(int j = 0; j < height; j++) 
@@ -153,9 +144,4 @@ void Map::componentRendering()
             }
         }
     }
-
-    cout << "playerName: " << player->name <<player->x<<player->y << "\n";
-    cout << "Number of Key: " << numberOfKey << "\n";
-    cout << "Number of Door: " << numberOfDoor << "\n";
-    cout << "Number of Money: " << amountOfMoney << "\n";
 }

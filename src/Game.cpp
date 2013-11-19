@@ -1,6 +1,7 @@
 #include "headers.hpp"
 
-Game::Game(string mapname) : playerPoint(0), life(3), unlockdoor(1)
+Game::Game(string mapname) : playerPoint(0), life(3), unlockdoor(1),
+    commandActivated(false)
 {
     initializeGame(mapname);
     checkMapFile();
@@ -19,7 +20,7 @@ void Game::initializeGame(string mapname)
     totalClockTick = 0.0;
     mapChecked = false;
 
-    map = new Map(mapname);
+map = new Map(mapname);
     map->currentMapName = mapname;
 
     //Check map components
@@ -29,24 +30,9 @@ void Game::initializeGame(string mapname)
     }
 
     infopanel = new InfoPanel(map->width, map->height);
-    cout << "ITEM SIZE" << map->items.size() << "\n";
-
-    //for(Item ** iterators=map->items.begin();
-            //iterators != map->items.end(); iterators++)
-    //{
-        //Item* item = *iterators;
-        //cout << "ITEM NAME " << item->name << "\n";
-    //}
 
     TCODConsole::initRoot(map->width,map->height,
             "Lock & Chase: Thief edition", false);
-
-    for(Item ** iterators=map->items.begin();
-            iterators != map->items.end(); iterators++)
-    {
-        Item* item = *iterators;
-        cout << "ITEM NAME " << item->name << "\n";
-    }
 }
 
 void Game::update()
@@ -86,7 +72,6 @@ void Game::generate()
     }
 
     infopanel->generate();
-
 }
 
 void Game::playerKey()
@@ -115,8 +100,63 @@ void Game::playerKey()
                 map->player->x++;
             }
             break;
-        default:break;
+        case TCODK_ENTER:
+            if(commandActivated)
+            {
+                commandActivated = false; 
+            }else
+            {
+                commandActivated = true; 
+            }
+            break;
+
+            default:
+            break;
     }
+
+    switch(key.c)
+    {
+        case 'q' :
+            exit(EXIT_FAILURE);
+            break;
+
+        default:
+            break;
+    }
+
+    //TCOD_key_t commandkey = TCODConsole::waitForKeypress(true);
+    //switch(commandkey.vk)
+    //{ 
+        //case TCODK_BACKSPACE:
+            //if(commandActivated)
+            //{
+                ////cout << "HAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" << "\n";
+                //game->infopanel->commandline.resize(game->infopanel->commandline.size()-1);
+                        ////game->infopanel->commandline.resize(
+                        ////game->infopanel->commandline.size()-1) ;
+
+                ////game->infopanel->commandisplay = 
+                    ////game->infopanel->commandisplay.substr(0,
+                            ////game->infopanel->commandisplay.size()-1);
+            //}
+            //break;
+        //default:
+
+            //if(commandActivated)
+            //{
+                //stringstream ss;
+                //stringstream sd;
+                //sd << &key.c;
+                //ss << key.c;
+                //game->infopanel->commandisplay.append(sd.str());
+                //game->infopanel->commandline.append(ss.str());
+                //cout << game->infopanel->commandline << "\n";
+                //cout << "SIZE: " << game->infopanel->commandline.size() << "\n";
+                //sd.clear();
+                //ss.clear();
+            //}
+            //break;
+    //}
 
     if( unlockdoor != 1)
     {
@@ -226,12 +266,12 @@ void Game::reposition()
             (*iterators)->y = (*iterators)->originaly; 
         }
 
-        //reposition items
-        for(Item ** iterators=removedItems.begin();
-                iterators != removedItems.end(); iterators++)
-        {
-            map->items.push(*iterators);
-        }
+        ////reposition items
+        //for(Item ** iterators=removedItems.begin();
+                //iterators != removedItems.end(); iterators++)
+        //{
+            //map->items.push(*iterators);
+        //}
 
         //Reset color lock
         for(Item ** iterators=map->items.begin();
@@ -245,8 +285,7 @@ void Game::reposition()
             }
         }
 
-        game->playerPoint = 0;
-        map->numberOfKey = map->initialNumberOfKey;
+        //map->numberOfKey = map->initialNumberOfKey;
     }
 
 }
@@ -265,7 +304,6 @@ void Game::collectingItems()
         //cout << "TOTAL KEY SIZE: " << map->numberOfKey << "\n";
         if(map->player->interactItem(item))
         {
-            cout <<"Interacted \n";
             if(item->symbol == MONEY)
             {
                 game->playerPoint = game->playerPoint + MONEY_POINT; 
@@ -297,22 +335,18 @@ void Game::collectingItems()
                 }else
                 {                    
 
-                    //if(unlockdoor == 1)
-                    //{
-                        //game->infopanel->message(TCODColor::green,
-                             //"You win the game"); 
-                    //}
-
-                    //unlockdoor = 0;
-                    //changeLevel();
                     if(allMaps.size() == 0)
                     {
+                        //if(unlockdoor == 1)
+                        //{
+                            //game->infopanel->message(TCODColor::green,
+                                //"You win the game"); 
+                        //}
+
+                        //unlockdoor = 0;
                         exit(EXIT_SUCCESS); 
                     }else{
-                        removedItems.clear();
-                        initializeGame(allMaps[0]);
-                        cout << "Next map: " << allMaps[0] << "\n";
-                        allMaps.erase(allMaps.begin(),allMaps.begin()+1);
+                        changeLevel();
 
                         break;
                     }
@@ -430,5 +464,8 @@ void Game::checkMapFile()
 
 void Game::changeLevel()
 {
-
+    removedItems.clear();
+    initializeGame(allMaps[0]);
+    cout << "Next map: " << allMaps[0] << "\n";
+    allMaps.erase(allMaps.begin(),allMaps.begin()+1);
 }

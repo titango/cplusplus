@@ -5,8 +5,8 @@ class Character
 {
 
     public:
-        int x,y; // position on map
-        int originalx,originaly; //original positions of x and y
+        float x,y; // position on map
+        float originalx,originaly; //original positions of x and y
         int symbol; // symbol on map like '@', 'O'
         string name; // Name of character
 

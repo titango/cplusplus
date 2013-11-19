@@ -40,8 +40,8 @@ void Guard::automove()
 
 bool Guard::detectPlayer()
 {
-    if(abs(this->x - game->map->player->x) < 6 && 
-            abs(this->y - game->map->player->y) < 6)
+    if(abs(this->x - game->map->player->x) < 5 && 
+            abs(this->y - game->map->player->y) < 5)
     {
         return true; 
     }
